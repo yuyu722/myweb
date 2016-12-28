@@ -8,7 +8,6 @@ import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 export class MenuBarComponent implements OnInit, OnDestroy
 {
   private menu: webix.ui.menu;
-  private toolbar: webix.ui.toolbar;
   private ui: webix.ui.layout
 
   constructor(root: ElementRef)
@@ -25,21 +24,10 @@ export class MenuBarComponent implements OnInit, OnDestroy
       }
     });
 
-    this.toolbar = <webix.ui.toolbar> webix.ui({
-      view: "toolbar",
-      paddingY: 0,
-      elements: [
-        {},
-        { view: "text" },
-        { view: "button", label: "search", width:100 }
-      ]
-    });
-
     this.ui = <webix.ui.layout> webix.ui({
       container: root.nativeElement,
       rows:[
-        { type:"clean", cols:[ this.menu, this.toolbar ] },
-        { template:"Some content" }
+        { type:"clean", cols:[ this.menu ] }
       ]
     });
   }
@@ -47,7 +35,6 @@ export class MenuBarComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.menu.resize();
-    this.toolbar.resize();
     this.ui.resize();
   }
 
