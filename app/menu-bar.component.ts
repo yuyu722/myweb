@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from  '@angular/router';
 
 @Component({
   selector: 'menu-bar',
@@ -8,34 +9,43 @@ import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 export class MenuBarComponent implements OnInit, OnDestroy
 {
   private menu: webix.ui.menu;
-  private ui: webix.ui.layout
 
-  constructor(root: ElementRef)
+  constructor(private router: Router)
   {
     this.menu = <webix.ui.menu> webix.ui({
       view: "menu",
       data: [
-        { value:"Add", submenu:[ "Order", "Shipment", "Customer" ] },
-        { value:"Edit", submenu: [ "Order", "Shipment", "Customer" ] }
+        {
+          id: "1",
+          value:"Add",
+          config: {
+            on: {
+              onItemClick:function(id) {
+                router.navigate([id + '/add']);
+              }
+            }
+          },
+          submenu:[
+            { id: "order", value: "Order" },
+            { id: "shipment", value: "Shipment" },
+            { id: "customer", value: "Customer", href: "" }
+          ]
+        },
+        {
+          value:"Edit",
+          submenu: [ "Order", "Shipment", "Customer" ]
+        }
       ],
       type: {
         subsign: true,
         width: 100
       }
     });
-
-    this.ui = <webix.ui.layout> webix.ui({
-      container: root.nativeElement,
-      rows:[
-        { type:"clean", cols:[ this.menu ] }
-      ]
-    });
   }
 
   ngOnInit()
   {
     this.menu.resize();
-    this.ui.resize();
   }
 
   ngOnDestroy()
