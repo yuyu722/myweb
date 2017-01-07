@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'add-customer',
   template: `<div id="areaA"></div>`
 })
 

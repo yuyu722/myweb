@@ -20,7 +20,7 @@ export class MenuBarComponent implements OnInit, OnDestroy
           value:"Add",
           config: {
             on: {
-              onItemClick:function(id) {
+              onItemClick:function(id: string) {
                 router.navigate([id + '/add']);
               }
             }
@@ -32,8 +32,20 @@ export class MenuBarComponent implements OnInit, OnDestroy
           ]
         },
         {
+          id: "2",
           value:"Edit",
-          submenu: [ "Order", "Shipment", "Customer" ]
+          config: {
+            on: {
+              onItemClick:function(id: string) {
+                router.navigate([id + '/list']);
+              }
+            }
+          },
+          submenu: [
+            { id: "order", value: "Order" },
+            { id: "shipment", value: "Shipment" },
+            { id: "customer", value: "Customer", href: "" }
+          ]
         }
       ],
       type: {
